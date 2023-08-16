@@ -382,6 +382,17 @@ function M.hint_with_callback(jump_target_gtr, opts, callback)
       not_special_key = false
     end
 
+    local zrus = "йцукенгшщзфывапролдячсмить"
+    local zeng = "qwertyuiopasdfghjklzxcvbnm"
+
+    local zpos, _ = string.find(zrus, key)
+
+    if zpos then
+        local zengpos = math.floor(zpos / 2) + 1;
+        key = zeng:sub(zengpos, zengpos)
+        -- eprintln("KEY =" .. key .. " ZPOS =" .. zpos,opts.teasing)
+    end
+
     if not_special_key and opts.keys:find(key, 1, true) then
       -- If this is a key used in Hop (via opts.keys), deal with it in Hop
       h = M.refine_hints(key, hs, callback, opts)
